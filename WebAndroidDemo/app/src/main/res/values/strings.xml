@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">技师学院新生报到</string>
+    <string name="app_name1">安全在线教育平台</string>
+    <string name="error_tv_hint">出现一些错误，点击重试看看！</string>
+</resources>

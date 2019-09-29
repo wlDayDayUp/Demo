@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F6F6"
+    tools:context=".MainActivity">
+
+
+    <!--底部菜单 bottomLy-->
+    <LinearLayout
+        android:id="@+id/bottomLy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#E1E1E1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/settingBt"
+            style="@style/main_bottom_tv"
+            android:layout_marginRight="0.25dp"
+            android:text="设置" />
+
+        <TextView
+            style="@style/main_bottom_tv"
+            android:layout_marginLeft="0.25dp"
+            android:layout_marginRight="0.25dp"
+            android:text="历史" />
+
+        <TextView
+            style="@style/main_bottom_tv"
+            android:layout_marginLeft="0.25dp"
+            android:text="我的" />
+    </LinearLayout>
+
+    <!--    连接状态-->
+    <LinearLayout
+        android:id="@+id/ll_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/yfRl"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/ly_name_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="left"
+                android:textSize="15sp" />
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/ly_kg_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="left"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/bt_ly_lj"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="未连接"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/bt_1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="一路"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/bt_2"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="二路"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/bt_3"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="三路"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/bt_4"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="全开"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/bt_5"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="全关"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <!--衣服图片 yfRl-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomLy"
+        android:layout_below="@+id/ll_state"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="#E1E1E1">
+
+            <TextView
+                style="@style/data_row_tv"
+                android:layout_marginRight="0.25dp"
+                android:text="前左胸" />
+
+            <TextView
+                android:id="@+id/tv_1_1"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                android:layout_marginRight="0.25dp"
+                 />
+
+            <TextView
+                android:id="@+id/tv_1_2"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                android:layout_marginRight="0.25dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_1_3"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E1E1E1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="#E1E1E1">
+
+            <TextView
+                style="@style/data_row_tv"
+                android:layout_marginRight="0.25dp"
+                android:text="前右胸" />
+
+            <TextView
+                android:id="@+id/tv_2_1"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                android:layout_marginRight="0.25dp"
+               />
+
+            <TextView
+                android:id="@+id/tv_2_2"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                android:layout_marginRight="0.25dp"
+                 />
+
+            <TextView
+                android:id="@+id/tv_2_3"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E1E1E1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="#E1E1E1">
+
+            <TextView
+                style="@style/data_row_tv"
+                android:layout_marginRight="0.25dp"
+                android:text="后左背" />
+
+            <TextView
+                android:id="@+id/tv_3_1"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                android:layout_marginRight="0.25dp"
+                 />
+
+            <TextView
+                android:id="@+id/tv_3_2"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                android:layout_marginRight="0.25dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_3_3"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+              />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E1E1E1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0.5dp"
+            android:background="#E1E1E1">
+
+            <TextView
+                style="@style/data_row_tv"
+                android:layout_marginRight="0.25dp"
+                android:text="后右背" />
+
+            <TextView
+                android:id="@+id/tv_4_1"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                android:layout_marginRight="0.25dp"
+              />
+
+            <TextView
+                android:id="@+id/tv_4_2"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+                android:layout_marginRight="0.25dp"
+            />
+
+            <TextView
+                android:id="@+id/tv_4_3"
+                style="@style/data_row_tv"
+                android:layout_marginLeft="0.25dp"
+           />
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/yfRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainToolbar">
+
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/cloth" />
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true">
+
+            <!--            <ImageView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_centerInParent="true"-->
+            <!--                android:src="@drawable/ic_toolbar_waring" />-->
+
+            <TextView
+                android:id="@+id/tv_s_z"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_s_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_s_l"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/tv_x_r"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tv_x_l"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!--数据表格-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:theme="@style/Base.Theme.AppCompat.Light"
+        app:title="@string/app_name"
+        app:titleTextColor="#fff" />
+
+</RelativeLayout>

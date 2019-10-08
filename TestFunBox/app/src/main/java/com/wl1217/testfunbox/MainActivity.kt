@@ -1,15 +1,17 @@
 package com.wl1217.testfunbox
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.wl1217.funlib.utils.toast
+import androidx.appcompat.app.AppCompatActivity
+import com.wl1217.testfunbox.api.API
+import rxhttp.wrapper.param.Param
+import rxhttp.wrapper.param.RxHttp
+import rxhttp.wrapper.param.`RxHttp$NoBodyParam`
+
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        "Welcome on Android".toast(this)
     }
 }

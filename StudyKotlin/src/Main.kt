@@ -1,10 +1,8 @@
-import bean.UserBean
+inline fun f1(i: Int, fn: (Int) -> Int) = fn(i)
+
 
 fun main() {
-    println("Hello Kotlin")
-
-    val userBean = UserBean("wg")
-
-    println(userBean.name)
-
+    println(f1(1000){
+        it * 2
+    })
 }

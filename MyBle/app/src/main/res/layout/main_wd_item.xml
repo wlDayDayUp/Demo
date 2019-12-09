@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bg_item"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/whitechangegray1">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:text="20元"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp" />
+
+</androidx.cardview.widget.CardView>

@@ -26,11 +26,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 
+import net.winsoft.myble.decoration.SpacesItemDecoration;
 import net.winsoft.myble.util.DialogUtil;
 
 import java.text.SimpleDateFormat;
@@ -53,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ItemClickAdapter mDevicesListAdapter;
     private List<BluetoothDevice> mBluetoothDeviceList;
     private DialogUtil dialogUtil;
-
+    private RecyclerView wd_rv;
+    private BaseQuickAdapter<String, BaseViewHolder> wdAdapter;
     private Button bt_ly_lj, bt_1, bt_2, bt_3, bt_4, bt_5;
     private TextView tv_s_l, tv_s_r, tv_x_l, tv_x_r, tv_s_z, ly_name_state, ly_kg_state,
             tv_1_1,
@@ -63,24 +70,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tv_1_2,
             tv_2_2,
             tv_3_2,
-            tv_4_2  ,
+            tv_4_2,
+            wd_tv,
 
-            tv_1_3,
+    tv_1_3,
             tv_2_3,
             tv_3_3,
-            tv_4_3
-
-                    ;
+            tv_4_3;
 
 
     private SharedPreferences sp;
     private SimpleDateFormat sdf;
+    private List<String> wdList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         initUi();
 
@@ -118,6 +124,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String mac = sp.getString("mac", "");
         Log.d("mac", "autoConLy: " + mac);
 
+        clickedWd = sp.getInt("wd_index", -1);
+
+        if (wdList != null && wdList.size() > 0) {
+            if (clickedWd > 0 && clickedWd < wdList.size()) {
+                wd_tv.setText(wdList.get(clickedWd) + " ℃");
+
+                // TODO 温度设置
+//        sendData();
+            }
+        }
+
+        if (wdAdapter != null) {
+            wdAdapter.notifyDataSetChanged();
+        }
+
+
         if (!"".equals(mac)) {
             mBleService.disconnect();
             mBleService.release();
@@ -133,10 +155,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    private int clickedWd = -1;
+
     private void initUi() {
         dialogUtil = new DialogUtil(this); /*Dialog 工具类*/
 
         sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        wd_rv = findViewById(R.id.wd_rv); // 最高温度设置
+        wd_tv = findViewById(R.id.wd_tv); // 最高温度设置
+
+        wdList = new ArrayList<>();
+        wdList.add("30");
+        wdList.add("40");
+        wdList.add("50");
+        wdList.add("60");
+        wdList.add("70");
+
+        wdAdapter = new BaseQuickAdapter<String, BaseViewHolder>(R.layout.main_wd_item, wdList) {
+
+            @Override
+            protected void convert(@NonNull BaseViewHolder helper, String item) {
+                if (clickedWd == helper.getAdapterPosition()) {
+                    helper.setBackgroundRes(R.id.bg_item, R.drawable.shape_je_bg);
+                    helper.setTextColor(R.id.tv, getResources().getColor(R.color.md_white_1000));
+                } else {
+                    helper.setBackgroundRes(R.id.bg_item, R.drawable.shape_je_bg_1);
+                    helper.setTextColor(R.id.tv, getResources().getColor(R.color.colorPrimary));
+                }
+                helper.setText(R.id.tv, item + " ℃");
+
+            }
+        };
+
+        wdAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                clickedWd = position;
+                if (sp != null) {
+                    sp.edit().putInt("wd_index", clickedWd).apply();
+                }
+                wdAdapter.notifyDataSetChanged();
+                wd_tv.setText(wdList.get(position) + " ℃");
+                // TODO 发送温度设置
+//                sendData();
+            }
+        });
+
+        wd_rv.setLayoutManager(new GridLayoutManager(this, 5));
+        wd_rv.addItemDecoration(
+                new SpacesItemDecoration(
+                        ConvertUtils.dp2px(6.0f),
+                        ConvertUtils.dp2px(6.0f)
+                )
+        );
+        wd_rv.setAdapter(wdAdapter);
 
         bt_ly_lj = findViewById(R.id.bt_ly_lj); // 蓝牙连接
         bt_ly_lj.setOnClickListener(this);
@@ -336,6 +409,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("wg", "-----------------------------------------------");
             autoConLy();
         }
+
         public void onServiceDisconnected(ComponentName classname) {
             mBleService = null;
         }
@@ -494,7 +568,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 try {
                     String aFloat = (Float
-                            .parseFloat(s2) / 100) + "";
+                            .parseFloat(s2) / 10) + "";
 
                     if (s1 != null && !s1.equals("")) {
                         String index = s1.substring(s1.length() - 1);

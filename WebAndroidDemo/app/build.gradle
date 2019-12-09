@@ -1,15 +1,25 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.1"
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.wl1217.cjsw"
         minSdkVersion 15
-        targetSdkVersion 29
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
     }
     buildTypes {
         release {
@@ -17,14 +27,31 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation 'com.just.agentweb:agentweb:4.1.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:25.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    //    implementation 'com.just.agentweb:agentweb:4.1.1'
+    implementation project(path: ':twlibrary')
+    implementation project(path: ':library')
+
+//    implementation 'com.rxjava.rxhttp:rxhttp:1.2.1'
+//    annotationProcessor 'com.rxjava.rxhttp:rxhttp-compiler:1.2.1' //注解处理器，生成RxHttp类
+//    implementation 'com.rxjava.rxlife:rxlife:1.1.0'  //页面销毁，关闭请求，非必须
+
+
+    api('com.rxjava.rxhttp:rxhttp:1.2.1') {
+        exclude group: "com.squareup.okhttp3"
+    }
+    api 'com.squareup.okhttp3:okhttp:3.12.3'    // 兼容 Android 5.0一下
+    api 'com.rxjava.rxlife:rxlife:1.1.0'    //页面销毁，关闭请求，非必须
+    annotationProcessor 'com.rxjava.rxhttp:rxhttp-compiler:1.2.1'   //注解处理器，生成RxHttp类
 }

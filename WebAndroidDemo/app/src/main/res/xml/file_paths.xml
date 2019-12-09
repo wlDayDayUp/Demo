@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <!--<external-path path="Android/data/com.chemao.certification/" name="files_root" />-->
-    <external-path path="." name="external_storage_root" />
+    <files-path
+        name="name"
+        path="" />
+
+    <cache-path
+        name="name"
+        path="" />
+
+    <root-path
+        name="root_path"
+        path="." />
 </paths>

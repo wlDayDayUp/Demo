@@ -30,4 +30,7 @@ dependencies {
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47-androidx'
 
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.blankj:utilcodex:1.26.0'
+
 }

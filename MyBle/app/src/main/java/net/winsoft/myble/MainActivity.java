@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SimpleDateFormat sdf;
     private List<String> wdList;
 
+    private String selectKg = "1";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,20 +126,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String mac = sp.getString("mac", "");
         Log.d("mac", "autoConLy: " + mac);
 
-        clickedWd = sp.getInt("wd_index", -1);
-
-        if (wdList != null && wdList.size() > 0) {
-            if (clickedWd > 0 && clickedWd < wdList.size()) {
-                wd_tv.setText(wdList.get(clickedWd) + " ℃");
-
-                // TODO 温度设置
-//        sendData();
-            }
-        }
-
-        if (wdAdapter != null) {
-            wdAdapter.notifyDataSetChanged();
-        }
+//        clickedWd = sp.getInt("wd_index", -1);
+//
+//        if (wdList != null && wdList.size() > 0) {
+//            if (clickedWd > 0 && clickedWd < wdList.size()) {
+//                wd_tv.setText(wdList.get(clickedWd) + " ℃");
+//
+//                // TODO 温度设置
+//                Log.d("wg", "温度设置: " + "1" + wdList.get(clickedWd));
+//                sendData("1" + wdList.get(clickedWd));
+//            }
+//        }
+//
+//        if (wdAdapter != null) {
+//            wdAdapter.notifyDataSetChanged();
+//        }
 
 
         if (!"".equals(mac)) {
@@ -198,7 +201,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 wdAdapter.notifyDataSetChanged();
                 wd_tv.setText(wdList.get(position) + " ℃");
                 // TODO 发送温度设置
-//                sendData();
+                Log.d("wg", "温度设置: " + "TE1," + wdList.get(clickedWd));
+                sendData(selectKg + wdList.get(clickedWd));
             }
         });
 
@@ -429,21 +433,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_1:
                 sendData("01");
+                selectKg = "1";
+                formatTm();
                 break;
             case R.id.bt_2:
                 sendData("02");
+                selectKg = "2";
+                formatTm();
                 break;
             case R.id.bt_3:
                 sendData("03");
+                selectKg = "3";
+                formatTm();
                 break;
             case R.id.bt_4:
                 sendData("04");
+                selectKg = "4";
+                formatTm();
                 break;
             case R.id.bt_5:
                 sendData("00");
+                formatTm();
                 break;
             default:
                 break;
+        }
+    }
+
+    private void formatTm() {
+        clickedWd = -1;
+        if (wdAdapter != null) {
+            wdAdapter.notifyDataSetChanged();
         }
     }
 
@@ -468,7 +488,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (action) {
                 case BleService.ACTION_READ_DATA_AVAILABLE:
                     byte[] readData = intent.getByteArrayExtra(BleService.EXTRA_DATA);
+
                     String s1 = ByteUtils.byteArrayToHexString(readData);
+
                     ly_kg_state.setText("开启：" + s1);
 
                     switch (s1) {
@@ -617,6 +639,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendData(String cmd) {
+        Log.d("wg", "sendData: " + cmd);
         if (mBleService != null) {
             if (mBleService.sendData(ByteUtils.hexStr2Byte(cmd))) {
                 new Handler().postDelayed(new Runnable() {

@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tv_3_2,
             tv_4_2,
             wd_tv,
+            settingBt,
 
     tv_1_3,
             tv_2_3,
@@ -153,6 +154,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             boolean connect = mBleService.connect(mBtAdapter, mac);
             if (connect) {
                 dialogUtil.missDeviceListDialog();
+                try {
+                    int wd_index_1 = sp.getInt("wd_index_1", 30);
+                    int wd_index_2 = sp.getInt("wd_index_2", 30);
+                    int wd_index_3 = sp.getInt("wd_index_3", 30);
+                    int wd_index_4 = sp.getInt("wd_index_4", 30);
+
+                    sendData("1" + wd_index_1);
+                    sendData("2" + wd_index_2);
+                    sendData("3" + wd_index_3);
+                    sendData("4" + wd_index_4);
+
+
+                    wd_tv.setText(
+                            "第一路温度：" + wd_index_1 + " ℃" + "\n" +
+                                    "第二路温度：" + wd_index_2 + " ℃" + "\n" +
+                                    "第三路温度：" + wd_index_3 + " ℃" + "\n" +
+                                    "第四路温度：" + wd_index_4 + " ℃" + "\n"
+                    );
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         }
 
@@ -232,6 +256,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         bt_5 = findViewById(R.id.bt_5); // 蓝牙连接
         bt_5.setOnClickListener(this);
+
+        settingBt = findViewById(R.id.settingBt); // 蓝牙连接
+        settingBt.setOnClickListener(this);
 
         tv_s_l = findViewById(R.id.tv_s_l);
         tv_s_r = findViewById(R.id.tv_s_r);
@@ -433,27 +460,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bt_1:
                 sendData("01");
-                selectKg = "1";
-                formatTm();
+//                selectKg = "1";
+//                formatTm();
                 break;
             case R.id.bt_2:
                 sendData("02");
-                selectKg = "2";
-                formatTm();
+//                selectKg = "2";
+//                formatTm();
                 break;
             case R.id.bt_3:
                 sendData("03");
-                selectKg = "3";
-                formatTm();
+//                selectKg = "3";
+//                formatTm();
                 break;
             case R.id.bt_4:
                 sendData("04");
-                selectKg = "4";
-                formatTm();
+//                selectKg = "4";
+//                formatTm();
                 break;
             case R.id.bt_5:
                 sendData("00");
-                formatTm();
+//                formatTm();
+                break;
+            case R.id.settingBt:
+                startActivity(new Intent(this, SettingActivity.class));
                 break;
             default:
                 break;
@@ -491,6 +521,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     String s1 = ByteUtils.byteArrayToHexString(readData);
 
+
                     ly_kg_state.setText("开启：" + s1);
 
                     switch (s1) {
@@ -499,15 +530,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             break;
                         case "04": //全部打开
                             setDataState("开启", "开启", "开启", "开启");
+                            int wd_index_11 = sp.getInt("wd_index_1", 30);
+                            int wd_index_22 = sp.getInt("wd_index_2", 30);
+                            int wd_index_33 = sp.getInt("wd_index_3", 30);
+                            int wd_index_44 = sp.getInt("wd_index_4", 30);
+                            sendData("1" + wd_index_11);
+                            sendData("2" + wd_index_22);
+                            sendData("3" + wd_index_33);
+                            sendData("4" + wd_index_44);
                             break;
                         case "01":
                             setDataState("开启", "关闭", "关闭", "关闭");
+                            int wd_index_1 = sp.getInt("wd_index_1", 30);
+                            sendData("1" + wd_index_1);
                             break;
                         case "02":
                             setDataState("关闭", "开启", "关闭", "关闭");
+                            int wd_index_2 = sp.getInt("wd_index_2", 30);
+                            sendData("2" + wd_index_2);
                             break;
                         case "03":
                             setDataState("关闭", "关闭", "开启", "关闭");
+                            int wd_index_3 = sp.getInt("wd_index_3", 30);
+                            sendData("3" + wd_index_3);
                             break;
                         default:
                             break;
@@ -590,7 +635,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 try {
                     String aFloat = (Float
-                            .parseFloat(s2) / 10) + "";
+                            .parseFloat(s2) / 10) + ""; //  ℃
 
                     if (s1 != null && !s1.equals("")) {
                         String index = s1.substring(s1.length() - 1);
@@ -626,6 +671,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
             }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            if (mBleService != null && sp != null) {
+                int wd_index_1 = sp.getInt("wd_index_1", 30);
+                int wd_index_2 = sp.getInt("wd_index_2", 30);
+                int wd_index_3 = sp.getInt("wd_index_3", 30);
+                int wd_index_4 = sp.getInt("wd_index_4", 30);
+
+                sendData("1" + wd_index_1);
+                sendData("2" + wd_index_2);
+                sendData("3" + wd_index_3);
+                sendData("4" + wd_index_4);
+
+                Log.d("wg", "温度设置1: " + wd_index_1);
+                Log.d("wg", "温度设置2: " + wd_index_2);
+                Log.d("wg", "温度设置3: " + wd_index_3);
+                Log.d("wg", "温度设置4: " + wd_index_4);
+
+                wd_tv.setText(
+                        "第一路温度：" + wd_index_1 + " ℃" + "\n" +
+                                "第二路温度：" + wd_index_2 + " ℃" + "\n" +
+                                "第三路温度：" + wd_index_3 + " ℃" + "\n" +
+                                "第四路温度：" + wd_index_4 + " ℃" + "\n"
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

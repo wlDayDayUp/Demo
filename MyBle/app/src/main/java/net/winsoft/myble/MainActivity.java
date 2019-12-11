@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DialogUtil dialogUtil;
     private RecyclerView wd_rv;
     private BaseQuickAdapter<String, BaseViewHolder> wdAdapter;
-    private Button bt_ly_lj, bt_1, bt_2, bt_3, bt_4, bt_5;
+    private Button bt_ly_lj, bt_1, bt_2, bt_3, bt_4, bt_5, bt_6;
     private TextView tv_s_l, tv_s_r, tv_x_l, tv_x_r, tv_s_z, ly_name_state, ly_kg_state,
             tv_1_1,
             tv_2_1,
@@ -73,8 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tv_4_2,
             wd_tv,
             settingBt,
-
-    tv_1_3,
+            tv_1_3,
             tv_2_3,
             tv_3_3,
             tv_4_3;
@@ -85,6 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<String> wdList;
 
     private String selectKg = "1";
+
+    private int kg_1 = 0;
+    private int kg_2 = 0;
+    private int kg_3 = 0;
+    private int kg_4 = 0;
+    private int kg_5 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,18 +165,97 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int wd_index_3 = sp.getInt("wd_index_3", 30);
                     int wd_index_4 = sp.getInt("wd_index_4", 30);
 
-                    sendData("1" + wd_index_1);
-                    sendData("2" + wd_index_2);
-                    sendData("3" + wd_index_3);
-                    sendData("4" + wd_index_4);
+//                    sendData("01" + wd_index_1 + "01");
+//                    sendData("02" + wd_index_2 + "01");
+//                    sendData("03" + wd_index_3 + "01");
+//                    sendData("04" + wd_index_4 + "01");
 
+                    sendData("000001" + wd_index_1 + wd_index_2 + wd_index_3 + wd_index_4);
 
                     wd_tv.setText(
-                            "第一路温度：" + wd_index_1 + " ℃" + "\n" +
-                                    "第二路温度：" + wd_index_2 + " ℃" + "\n" +
-                                    "第三路温度：" + wd_index_3 + " ℃" + "\n" +
-                                    "第四路温度：" + wd_index_4 + " ℃" + "\n"
+                            "前左胸温度：" + wd_index_1 + " ℃" + "\n" +
+                                    "前右胸温度：" + wd_index_2 + " ℃" + "\n" +
+                                    "后左胸温度：" + wd_index_3 + " ℃" + "\n" +
+                                    "后右胸温度：" + wd_index_4 + " ℃" + "\n"
                     );
+
+                    kg_1 = sp.getInt("kg_1", 0);
+                    kg_2 = sp.getInt("kg_2", 0);
+                    kg_3 = sp.getInt("kg_3", 0);
+                    kg_4 = sp.getInt("kg_4", 0);
+                    kg_5 = sp.getInt("kg_5", 0);
+
+
+                    Log.d("wg", "autoConLy: kg_1 " + kg_1);
+                    Log.d("wg", "autoConLy: kg_2 " + kg_2);
+                    Log.d("wg", "autoConLy: kg_3 " + kg_3);
+                    Log.d("wg", "autoConLy: kg_4 " + kg_4);
+                    Log.d("wg", "autoConLy: kg_5 " + kg_5);
+
+                    if (kg_1 == 1) {
+                        sendData("010100");
+                        bt_1.setText("前左胸 开");
+                        tv_1_1.setText("开启");
+//                        kg_1 = 0;
+                    } else if (kg_1 == 0) {
+                        sendData("010000");
+                        bt_1.setText("前左胸 关");
+                        tv_1_1.setText("关闭");
+//                        kg_1 = 1;
+                    }
+
+                    if (kg_2 == 1) {
+                        sendData("020100");
+                        bt_2.setText("前右胸 开");
+                        tv_2_1.setText("开启");
+//                        kg_2 = 0;
+                    } else if (kg_2 == 0) {
+                        sendData("020000");
+                        bt_2.setText("前右胸 关");
+                        tv_2_1.setText("关闭");
+//                        kg_2 = 1;
+                    }
+                    if (kg_3 == 1) {
+                        sendData("030100");
+                        bt_3.setText("后左背 开");
+                        tv_3_1.setText("开启");
+//                        kg_3 = 0;
+                    } else if (kg_3 == 0) {
+                        sendData("030000");
+                        bt_3.setText("后左背 关");
+                        tv_3_1.setText("关闭");
+//                        kg_3 = 1;
+                    }
+                    if (kg_4 == 1) {
+                        sendData("040100");
+                        bt_4.setText("后右背 开");
+                        tv_4_1.setText("开启");
+//                        kg_4 = 0;
+                    } else if (kg_4 == 0) {
+                        sendData("040000");
+                        bt_4.setText("后右背 关");
+                        tv_4_1.setText("关闭");
+//                        kg_4 = 1;
+                    }
+                    if (
+                            kg_1 == 1 &&
+                                    kg_2 == 1 &&
+                                    kg_3 == 1 &&
+                                    kg_4 == 1
+                    ) {
+                        sendData("050100");
+                        bt_5.setText("全开");
+                        setDataState("开启", "开启", "开启", "开启");
+//                        kg_5 = 0;
+                    } else if (kg_1 == 0 &&
+                            kg_2 == 0 &&
+                            kg_3 == 0 &&
+                            kg_4 == 0) {
+                        sendData("050000");
+                        bt_5.setText("全关");
+                        setDataState("关闭", "关闭", "关闭", "关闭");
+//                        kg_5 = 1;
+                    }
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -256,6 +340,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         bt_5 = findViewById(R.id.bt_5); // 蓝牙连接
         bt_5.setOnClickListener(this);
+
+        bt_6 = findViewById(R.id.bt_6); // 蓝牙连接
+        bt_6.setOnClickListener(this);
 
         settingBt = findViewById(R.id.settingBt); // 蓝牙连接
         settingBt.setOnClickListener(this);
@@ -446,8 +533,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
+
+    private void pdQkQgState() {
+        if (
+                kg_1 == 1 &&
+                        kg_2 == 1 &&
+                        kg_3 == 1 &&
+                        kg_4 == 1
+        ) {
+            sendData("050100");
+            bt_5.setText("全开");
+            setDataState("开启", "开启", "开启", "开启");
+            kg_5 = 0;
+            sp.edit().putInt("kg_5", kg_5).apply();
+        } else if (kg_1 == 0 &&
+                kg_2 == 0 &&
+                kg_3 == 0 &&
+                kg_4 == 0) {
+            sendData("050000");
+            bt_5.setText("全关");
+            setDataState("关闭", "关闭", "关闭", "关闭");
+            kg_5 = 1;
+            sp.edit().putInt("kg_5", kg_5).apply();
+        }
+    }
+
     @Override
     public void onClick(View view) {
+        Log.d("wg", " : kg_1 " + kg_1);
+        Log.d("wg", " : kg_2 " + kg_2);
+        Log.d("wg", " : kg_3 " + kg_3);
+        Log.d("wg", " : kg_4 " + kg_4);
+        Log.d("wg", " : kg_5 " + kg_5);
         switch (view.getId()) {
             case R.id.bt_ly_lj: // 蓝牙连接
                 // 搜索蓝牙设备
@@ -459,28 +576,104 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dialogUtil.showDeviceListDialog(mDevicesListAdapter);
                 break;
             case R.id.bt_1:
-                sendData("01");
-//                selectKg = "1";
-//                formatTm();
+                if (kg_1 == 0) {
+                    bt_1.setText("前左胸 开");
+                    tv_1_1.setText("开启");
+                    kg_1 = 1;
+                    sendData("010100");
+                    pdQkQgState();
+                } else if (kg_1 == 1) {
+                    bt_1.setText("前左胸 关");
+                    tv_1_1.setText("关闭");
+                    kg_1 = 0;
+                    sendData("010000");
+                    pdQkQgState();
+                }
+                sp.edit().putInt("kg_1", kg_1).apply();
                 break;
             case R.id.bt_2:
-                sendData("02");
-//                selectKg = "2";
-//                formatTm();
+                if (kg_2 == 0) {
+                    bt_2.setText("前右胸 开");
+                    tv_2_1.setText("开启");
+                    kg_2 = 1;
+                    sendData("020100");
+                    pdQkQgState();
+                } else if (kg_2 == 1) {
+                    bt_2.setText("前右胸 关");
+                    tv_2_1.setText("关闭");
+                    kg_2 = 0;
+                    sendData("020000");
+                    pdQkQgState();
+                }
+                sp.edit().putInt("kg_2", kg_2).apply();
                 break;
             case R.id.bt_3:
-                sendData("03");
-//                selectKg = "3";
-//                formatTm();
+                if (kg_3 == 0) {
+                    bt_3.setText("后左背 开");
+                    tv_3_1.setText("开启");
+                    kg_3 = 1;
+                    sendData("030100");
+                    pdQkQgState();
+                } else if (kg_3 == 1) {
+                    bt_3.setText("后左背 关");
+                    tv_3_1.setText("关闭");
+                    kg_3 = 0;
+                    sendData("030000");
+                    pdQkQgState();
+                }
+                sp.edit().putInt("kg_3", kg_3).apply();
                 break;
             case R.id.bt_4:
-                sendData("04");
-//                selectKg = "4";
-//                formatTm();
+                if (kg_4 == 0) {
+                    bt_4.setText("后右背 开");
+                    tv_4_1.setText("开启");
+                    kg_4 = 1;
+                    sendData("040100");
+                    pdQkQgState();
+                } else if (kg_4 == 1) {
+                    bt_4.setText("后右背 关");
+                    tv_4_1.setText("关闭");
+                    kg_4 = 0;
+                    sendData("040000");
+                    pdQkQgState();
+                }
+                sp.edit().putInt("kg_4", kg_4).apply();
                 break;
             case R.id.bt_5:
-                sendData("00");
-//                formatTm();
+                if (kg_5 == 0) {
+                    bt_5.setText("全开");
+                    setDataState("开启", "开启", "开启", "开启");
+
+                    bt_1.setText("前左胸 开");
+                    bt_2.setText("前右胸 开");
+                    bt_3.setText("后左背 开");
+                    bt_4.setText("后右背 开");
+
+                    kg_1 = 1;
+                    kg_2 = 1;
+                    kg_3 = 1;
+                    kg_4 = 1;
+
+                    kg_5 = 1;
+                    sendData("050100");
+                } else if (kg_5 == 1) {
+                    bt_5.setText("全关");
+                    setDataState("关闭", "关闭", "关闭", "关闭");
+
+                    bt_1.setText("前左胸 关");
+                    bt_2.setText("前右胸 关");
+                    bt_3.setText("后左背 关");
+                    bt_4.setText("后右背 关");
+
+                    kg_1 = 0;
+                    kg_2 = 0;
+                    kg_3 = 0;
+                    kg_4 = 0;
+
+                    kg_5 = 0;
+                    sendData("050000");
+                }
+                sp.edit().putInt("kg_5", kg_5).apply();
                 break;
             case R.id.settingBt:
                 startActivity(new Intent(this, SettingActivity.class));
@@ -517,48 +710,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             switch (action) {
                 case BleService.ACTION_READ_DATA_AVAILABLE:
-                    byte[] readData = intent.getByteArrayExtra(BleService.EXTRA_DATA);
+//                    byte[] readData = intent.getByteArrayExtra(BleService.EXTRA_DATA);
 
-                    String s1 = ByteUtils.byteArrayToHexString(readData);
+//                    String s1 = ByteUtils.byteArrayToHexString(readData);
 
+//                    ly_kg_state.setText("开启：" + s1);
+//
+//                    switch (s1) {
+//                        case "00": //全部关闭
+//                            setDataState("关闭", "关闭", "关闭", "关闭");
+//                            break;
+//                        case "04": //全部打开
+//                            setDataState("开启", "开启", "开启", "开启");
+//                            int wd_index_11 = sp.getInt("wd_index_1", 30);
+//                            int wd_index_22 = sp.getInt("wd_index_2", 30);
+//                            int wd_index_33 = sp.getInt("wd_index_3", 30);
+//                            int wd_index_44 = sp.getInt("wd_index_4", 30);
+//                            sendData("1" + wd_index_11);
+//                            sendData("2" + wd_index_22);
+//                            sendData("3" + wd_index_33);
+//                            sendData("4" + wd_index_44);
+//                            break;
+//                        case "01":
+//                            setDataState("开启", "关闭", "关闭", "关闭");
+//                            int wd_index_1 = sp.getInt("wd_index_1", 30);
+//                            sendData("1" + wd_index_1);
+//                            break;
+//                        case "02":
+//                            setDataState("关闭", "开启", "关闭", "关闭");
+//                            int wd_index_2 = sp.getInt("wd_index_2", 30);
+//                            sendData("2" + wd_index_2);
+//                            break;
+//                        case "03":
+//                            setDataState("关闭", "关闭", "开启", "关闭");
+//                            int wd_index_3 = sp.getInt("wd_index_3", 30);
+//                            sendData("3" + wd_index_3);
+//                            break;
+//                        default:
+//                            break;
+//                    }
 
-                    ly_kg_state.setText("开启：" + s1);
-
-                    switch (s1) {
-                        case "00": //全部关闭
-                            setDataState("关闭", "关闭", "关闭", "关闭");
-                            break;
-                        case "04": //全部打开
-                            setDataState("开启", "开启", "开启", "开启");
-                            int wd_index_11 = sp.getInt("wd_index_1", 30);
-                            int wd_index_22 = sp.getInt("wd_index_2", 30);
-                            int wd_index_33 = sp.getInt("wd_index_3", 30);
-                            int wd_index_44 = sp.getInt("wd_index_4", 30);
-                            sendData("1" + wd_index_11);
-                            sendData("2" + wd_index_22);
-                            sendData("3" + wd_index_33);
-                            sendData("4" + wd_index_44);
-                            break;
-                        case "01":
-                            setDataState("开启", "关闭", "关闭", "关闭");
-                            int wd_index_1 = sp.getInt("wd_index_1", 30);
-                            sendData("1" + wd_index_1);
-                            break;
-                        case "02":
-                            setDataState("关闭", "开启", "关闭", "关闭");
-                            int wd_index_2 = sp.getInt("wd_index_2", 30);
-                            sendData("2" + wd_index_2);
-                            break;
-                        case "03":
-                            setDataState("关闭", "关闭", "开启", "关闭");
-                            int wd_index_3 = sp.getInt("wd_index_3", 30);
-                            sendData("3" + wd_index_3);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    Log.d("wg", "ACTION_READ_DATA_AVAILABLE: ---- " + ASCII_HEX_Util.hexToAscii(ByteUtils.byteArrayToHexString(readData)));
+//                    Log.d("wg", "ACTION_READ_DATA_AVAILABLE: ---- " + ASCII_HEX_Util.hexToAscii(ByteUtils.byteArrayToHexString(readData)));
                     break;
 
                 case BleService.ACTION_GATT_CONNECTED:
@@ -640,28 +832,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (s1 != null && !s1.equals("")) {
                         String index = s1.substring(s1.length() - 1);
                         switch (index) {
-                            case "0":
+                            case "1":
                                 tv_s_l.setText(aFloat);
                                 tv_1_2.setText(aFloat);
                                 tv_1_3.setText(sdf.format(new Date()));
                                 break;
-                            case "1":
+                            case "2":
                                 tv_s_r.setText(aFloat);
                                 tv_2_2.setText(aFloat);
                                 tv_2_3.setText(sdf.format(new Date()));
                                 break;
-                            case "2":
+                            case "3":
                                 tv_x_l.setText(aFloat);
                                 tv_3_2.setText(aFloat);
                                 tv_3_3.setText(sdf.format(new Date()));
                                 break;
-                            case "3":
+                            case "4":
                                 tv_x_r.setText(aFloat);
                                 tv_4_2.setText(aFloat);
                                 tv_4_3.setText(sdf.format(new Date()));
                                 break;
-                            case "4":
-                                tv_s_z.setText(aFloat);
+                            case "0"://电池电量
+//                                tv_s_z.setText(aFloat);
                                 break;
                         }
                     }
@@ -684,21 +876,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 int wd_index_3 = sp.getInt("wd_index_3", 30);
                 int wd_index_4 = sp.getInt("wd_index_4", 30);
 
-                sendData("1" + wd_index_1);
-                sendData("2" + wd_index_2);
-                sendData("3" + wd_index_3);
-                sendData("4" + wd_index_4);
+//                sendData("01" + wd_index_1 + "01");
+//                sendData("02" + wd_index_2 + "01");
+//                sendData("03" + wd_index_3 + "01");
+//                sendData("04" + wd_index_4 + "01");
+
+                sendData("000001" + wd_index_1 + wd_index_2 + wd_index_3 + wd_index_4);
+
 
                 Log.d("wg", "温度设置1: " + wd_index_1);
                 Log.d("wg", "温度设置2: " + wd_index_2);
                 Log.d("wg", "温度设置3: " + wd_index_3);
                 Log.d("wg", "温度设置4: " + wd_index_4);
-
                 wd_tv.setText(
-                        "第一路温度：" + wd_index_1 + " ℃" + "\n" +
-                                "第二路温度：" + wd_index_2 + " ℃" + "\n" +
-                                "第三路温度：" + wd_index_3 + " ℃" + "\n" +
-                                "第四路温度：" + wd_index_4 + " ℃" + "\n"
+                        "前左胸温度：" + wd_index_1 + " ℃" + "\n" +
+                                "前右胸温度：" + wd_index_2 + " ℃" + "\n" +
+                                "后左胸温度：" + wd_index_3 + " ℃" + "\n" +
+                                "后右胸温度：" + wd_index_4 + " ℃" + "\n"
                 );
             }
         } catch (Exception e) {

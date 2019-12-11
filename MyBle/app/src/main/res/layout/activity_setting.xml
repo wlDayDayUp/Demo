@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:text="第一路温度"
+            android:text="前左胸温度"
             android:textSize="16sp" />
 
         <TextView
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:text="第二路温度"
+            android:text="前右胸温度"
             android:textSize="16sp" />
 
         <TextView
@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:text="第三路温度"
+            android:text="后左背温度"
             android:textSize="16sp" />
 
         <TextView
@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:text="第四路温度"
+            android:text="后右背温度"
             android:textSize="16sp" />
 
         <TextView
